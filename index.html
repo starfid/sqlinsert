@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>SQL Insert Explainer</title>
+		<meta charset="utf-8">
+		<meta content="Page Description" name="description">
+		<meta content="notranslate" name="google">
+		<meta content="yes" name="mobile-web-app-capable">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="width=device-width,none-scale=1,shrink-to-fit=no" name="viewport">
+		<meta content="#FFFFFF" name="theme-color">
+		<meta content="telephone=no" name="format-detection">
+		<link rel="icon" href="data:,">
+		<style>
+			body, textarea {font-family:arial;font-size:1.5vw}
+			textarea {width:100%;margin:0;outline:0;}
+			main section {display:grid;grid-template-columns:40vw 40vw;grid-gap:2vw}
+			fieldset,section {margin:1vw;padding:0;border:0}
+			section {cursor:pointer;}
+			@media (max-width: 1000px) { /*phone size below 1000 pixel*/
+				body, textarea {font-size:3vh}
+				textarea {height:30vh;margin-bottom:2vh;width:97%}
+				main section {grid-gap:4vh;grid-template-columns:44vw 44vw;}
+			}
+		</style>
+	</head>
+	<body>
+		<fieldset>
+			<textarea rows="3" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="off"></textarea>
+		</fieldset>
+		<main></main>
+	</body>
+</html>
+<script>
+	highlight = (div) => {
+		div.style.backgroundColor = 'rgb(200,200,200)';
+	}
+	white = (div) => {
+		div.style.backgroundColor = '#FFFFFF';
+	}
+	main = document.getElementsByTagName('main')[0];
+	document.getElementsByTagName('textarea')[0].addEventListener('keyup',function(){
+		var tx = this.value.toLowerCase();
+		if(tx.indexOf('values')>1){
+			var val = tx.trim().split('values');
+			var arr = [val[0].match(/[^\(\)]+(?=\))/g)[0]];
+			var val = val[1].trim();
+			arr.push(val.substr(1,val.length-2));
+			main.innerHTML = '';
+			var col = arr[0].split(',');
+			[...arr[1].split(',')].forEach((x,i)=>{
+				main.innerHTML = main.innerHTML + "<section onmouseover='highlight(this)' onmouseout='white(this)'> <div>" + col[i] + "</div> <div>" + x + "</div> </section>";
+			});
+		}
+	});
+	setTimeout(()=>{
+		document.getElementsByTagName('textarea')[0].focus();
+	},100);
+</script>
